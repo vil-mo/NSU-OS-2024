@@ -5,6 +5,11 @@
 
 int main() {
     int fd = fileno(stdin);
+    if (!isatty(fd)) {
+        fprintf(stderr, "Code %d\n", errno);
+        perror("Stdin is not a terminal");
+        return 1;
+    }
 
     struct termios tty;
     if (tcgetattr(fd, &tty) != 0) {
