@@ -1,20 +1,18 @@
 #include <termios.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
 
 int main() {
     int fd = fileno(stdin);
-    if (!isatty(fd)) {
-        perror("Stdin is not a terminal");
-        return 1;
-    }
 
     struct termios tty;
     if (tcgetattr(fd, &tty) != 0) {
-        perror("Can't get terminal attributes");
+        fprintf(stderr, "Code is: %d, ENOTTY: %d, EBADF: %d\n", errno, ENOTTY, EBADF);
+        perror("Can't get attributes of stdin");
         return 1;
     }
-    
+
     struct termios saved_tty = tty;
     tty.c_lflag &= ~ICANON;
     tty.c_cc[VMIN] = 1;
@@ -31,9 +29,9 @@ int main() {
     } else {
         printf("That's worng...\n");
     }
-    
+
     if (tcsetattr(fd, TCSANOW, &saved_tty) != 0) {
-        perror("Can't restore terminal attributes");
+        perror("Can't restore terminal attrigbutes");
         return 1;
     }
 
