@@ -98,11 +98,11 @@ int main() {
                 int last_word_pos = LINE_LENGTH;
                 pos = 0;
                 
-                while (last_word_pos > 0 && buf[last_word_pos - 1] != ' ') {
+                while (c != ' ' && last_word_pos > 0 && buf[last_word_pos - 1] != ' ') {
                     last_word_pos--;
                 }
 
-                if (last_word_pos != 0) {
+                if (c != ' ' && last_word_pos != 0) {
                     for (int i = last_word_pos; i < LINE_LENGTH; i++) {
                         putchar_exit_on_err('\b');
                     }
@@ -118,6 +118,9 @@ int main() {
                 } else {
                     putchar_exit_on_err('\n');
                 }
+
+                putchar_exit_on_err(c);
+                pos++;
             } else {
                 buf[pos - 1] = c;
                 putchar_exit_on_err(c);
