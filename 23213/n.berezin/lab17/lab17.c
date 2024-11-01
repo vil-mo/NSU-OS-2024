@@ -67,11 +67,11 @@ int main() {
 
         if (c == erase) {
             if (pos > 0) {
-                fputs_stdin_exit_on_err("\b\e[0K");
+                fputs_stdin_exit_on_err("\b\x1B[0K");
                 pos--;
             }
         } else if (c == kill) {
-            fputs_stdin_exit_on_err("\r\e[2K");
+            fputs_stdin_exit_on_err("\r\x1B[2K");
             pos = 0;
         } else if (c == CTRL_W) {
             int word_met = 0;
@@ -84,7 +84,7 @@ int main() {
                 pos--;
                 putchar_exit_on_err('\b');
             }
-            fputs_stdin_exit_on_err("\e[0K");
+            fputs_stdin_exit_on_err("\x1B[0K");
         } else if (c == CTRL_D) {
             if (pos == 0) {
                 break;
@@ -106,7 +106,7 @@ int main() {
                     for (int i = last_word_pos; i < LINE_LENGTH; i++) {
                         putchar_exit_on_err('\b');
                     }
-                    fputs_stdin_exit_on_err("\e[0K\n");
+                    fputs_stdin_exit_on_err("\x1B[0K\n");
 
                     // LINE_LENGTH - last_word_pos > 0 => pos will be < LINE_LENGTH
                     for (; last_word_pos < LINE_LENGTH; last_word_pos++) {
