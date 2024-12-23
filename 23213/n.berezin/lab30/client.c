@@ -12,6 +12,7 @@ int main() {
     int sockfd;
     struct sockaddr_un addr;
     memset(&addr, 0, sizeof(addr));
+    addr.sun_family = AF_UNIX;
     strncpy(addr.sun_path, sock_path, sizeof(addr.sun_path) - 1);
 
     if ((sockfd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
