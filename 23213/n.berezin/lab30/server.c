@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 const char *sock_path = "./.sock";
 
