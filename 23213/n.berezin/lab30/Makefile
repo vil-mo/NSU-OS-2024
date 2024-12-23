@@ -3,3 +3,6 @@ client: client.c
 
 server: server.c
 	cc -v -o server.out server.c -lsocket -lnsl
+
+reset:
+	rm .sock

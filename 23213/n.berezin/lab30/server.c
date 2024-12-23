@@ -40,7 +40,7 @@ int main() {
     }
 
     char buf[1024];
-    int n;
+    ssize_t n;
     while ((n = read(connfd, buf, sizeof(buf))) > 0) {
         for (int i = 0; i < n; i++) {
             buf[i] = toupper(buf[i]);

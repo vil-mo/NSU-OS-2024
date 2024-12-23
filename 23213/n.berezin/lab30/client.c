@@ -26,8 +26,9 @@ int main() {
     }
 
     char buf[1024];
-    while (read(STDIN_FILENO, buf, sizeof(buf)) > 0) {
-        write(sockfd, buf, strlen(buf));
+    ssize_t n;
+    while ((n = read(STDIN_FILENO, buf, sizeof(buf))) > 0) {
+        write(sockfd, buf, n);
     }
 
     return 0;
